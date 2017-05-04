@@ -155,6 +155,7 @@
      <Compile Include="Assets\GoogleVR\Scripts\Utilities\GvrIntent.cs" />
      <Compile Include="Assets\GoogleVR\Scripts\Utilities\GvrUIHelpers.cs" />
      <Compile Include="Assets\GoogleVR\Scripts\Video\GvrVideoPlayerTexture.cs" />
+     <Compile Include="Assets\Scripts\AssignMesh.cs" />
      <Compile Include="Assets\Scripts\NavigationController.cs" />
      <Compile Include="Assets\Scripts\SwapTexture.cs" />
      <None Include="Assets\Plugins\Android\proguard-gvr.txt" />

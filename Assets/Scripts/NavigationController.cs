@@ -20,8 +20,12 @@ public class NavigationController : MonoBehaviour {
 //		}
 
 
-		Material newMat = Resources.Load("PAN" + run, typeof(Material)) as Material;
-		GameObject.FindWithTag("World").GetComponent<Renderer>().material = newMat;
+//		Material newMat = Resources.Load("PAN" + run, typeof(Material)) as Material;
+//		GameObject.FindWithTag("World").GetComponent<Renderer>().material = newMat;
+
+		Texture newTexture = Resources.Load("Image" + run, typeof(Texture)) as Texture;
+		GameObject.FindWithTag ("World").GetComponent<Renderer> ().material.mainTexture = newTexture;
+
 //		System.Threading.Thread.Sleep(1000);
 		run++;
 		if (run == 3)
