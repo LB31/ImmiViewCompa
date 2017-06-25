@@ -12,45 +12,47 @@ public class InitialWorld : MonoBehaviour
 	public CreateSpheres initSpheres;
 	private bool isStart = true;
 	public JsonData itemData;
-	public Dictionary<string, int> dictionary = new Dictionary<string, int>();
+	public Dictionary<string, int> dictionary = new Dictionary<string, int> ();
 	public Texture2D[] tex;
 
 
-	void Start(){
+	void Start ()
+	{
 		tex = new Texture2D[10];
 		itemData = dataJSON.itemData;
-		StartCoroutine(setTexture (panoramaNumber));
+		StartCoroutine (setTexture (panoramaNumber));
 
 
 
 	}
 
-	public IEnumerator setTexture (int panoramaNumber){
+	public IEnumerator setTexture (int panoramaNumber)
+	{
 
 		if (isStart) {
 
-			for(int i = 0; i < itemData ["panoramas"].Count; i++){
-				tex[i] = new Texture2D (4, 4, TextureFormat.DXT1, false);
+			for (int i = 0; i < itemData ["panoramas"].Count; i++) {
+				tex [i] = new Texture2D (4, 4, TextureFormat.DXT1, false);
 			
-					url = (string)itemData ["panoramas"] [i] ["fileUrls"]["ORIGINAL_PATH"];
+				url = (string)itemData ["panoramas"] [i] ["fileUrls"] ["ORIGINAL_PATH"];
 //					url = (string)itemData ["panoramas"] [i] ["fileUrls"]["SMALL"];
 
 
 				string name = (string)itemData ["panoramas"] [i] ["name"];
-						dictionary.Add(name, i);
-						WWW www = new WWW (url);
-						yield return www;
-						www.LoadImageIntoTexture (tex[i]);		
+				dictionary.Add (name, i);
+				WWW www = new WWW (url);
+				yield return www;
+				www.LoadImageIntoTexture (tex [i]);		
 			}
 
 			isStart = false;
 			GameObject navPrefab = (GameObject)Resources.Load ("Prefabs/NavigationPrefabInv");
-			initSpheres = navPrefab.GetComponent<CreateSpheres>();
+			initSpheres = navPrefab.GetComponent<CreateSpheres> ();
 			initSpheres.createSpheres ((string)(itemData ["panoramas"] [panoramaNumber] ["name"]));
 
 		}
 
-		GetComponent<Renderer> ().material.mainTexture = tex[panoramaNumber];
+		GetComponent<Renderer> ().material.mainTexture = tex [panoramaNumber];
 
 	}
 
