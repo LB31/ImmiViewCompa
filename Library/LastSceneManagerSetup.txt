@@ -1,7 +1,7 @@
 sceneSetups:
 - path: Assets/_Scenes/WorldOutside.unity
-  isLoaded: 1
-  isActive: 1
-- path: Assets/_Scenes/Main.unity
   isLoaded: 0
   isActive: 0
+- path: Assets/_Scenes/Tour.unity
+  isLoaded: 1
+  isActive: 1

@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{4D85203A-737D-0DBF-1AED-FEB6DE3B678E}</ProjectGuid>
+    <ProjectGuid>{3100DFF9-C3C3-5A7D-297A-8D991F3C5BBD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -49,7 +49,6 @@
      <Compile Include="Assets\Editor\EditorGUIProgressBar.cs" />
      <Compile Include="Assets\Editor\InvertedSphere.cs" />
      <Compile Include="Assets\GoogleVR\Demos\Editor\DemoInputManagerEditor.cs" />
-     <Compile Include="Assets\GoogleVR\Demos\Editor\PermissionsDemoBuildEditor.cs" />
      <Compile Include="Assets\GoogleVR\Demos\Scripts\ScrollingUIDemo\Editor\PagedScrollbarEditor.cs" />
      <Compile Include="Assets\GoogleVR\Editor\Audio\GvrAudioListenerEditor.cs" />
      <Compile Include="Assets\GoogleVR\Editor\Audio\GvrAudioRoomEditor.cs" />
@@ -58,11 +57,16 @@
      <Compile Include="Assets\GoogleVR\Editor\Controller\GvrTooltipEditor.cs" />
      <Compile Include="Assets\GoogleVR\Editor\EventSystem\GvrPointerScrollInputEditor.cs" />
      <Compile Include="Assets\GoogleVR\Editor\GvrBuildProcessor.cs" />
+     <Compile Include="Assets\GoogleVR\Editor\GvrCompatibilityChecker.cs" />
      <Compile Include="Assets\GoogleVR\Editor\GvrEditorSettings.cs" />
      <Compile Include="Assets\GoogleVR\Editor\GvrMenu.cs" />
+     <Compile Include="Assets\GoogleVR\Editor\GvrViewerEditor.cs" />
+     <Compile Include="Assets\GoogleVR\Legacy\Editor\GvrGazeEditor.cs" />
+     <Compile Include="Assets\GoogleVR\Legacy\Editor\StereoControllerEditor.cs" />
      <None Include="Assets\GoogleVR\Distortion\GvrDistortion.cginc" />
      <None Include="Assets\GoogleVR\Demos\Shaders\VideoDemo\VideoDemoInsideShader.shader" />
      <None Include="Assets\GoogleVR\Shaders\GvrUIOverlayFont.shader" />
+     <None Include="Assets\GoogleVR\Legacy\Resources\UnlitTexture.shader" />
      <None Include="Assets\Ciconia Studio\Shaders\Double Sided Shaders\Double Sided Emissive Diffuse.shader" />
      <None Include="Assets\Ciconia Studio\Shaders\Double Sided Shaders\Double Sided Transparent Diffuse Bump Cutout.shader" />
      <None Include="Assets\GoogleVR\Shaders\GvrAdditiveOverlay.shader" />
@@ -80,6 +84,7 @@
      <None Include="Assets\Ciconia Studio\Shaders\Double Sided Shaders\Double Sided Transparent Diffuse Bump.shader" />
      <None Include="Assets\GoogleVR\Shaders\GvrUIOverlay.shader" />
      <None Include="Assets\Plugins\Android\AndroidManifest-Cardboard.xml" />
+     <None Include="Assets\GoogleVR\Legacy\Resources\SolidColor.shader" />
      <None Include="Assets\GoogleVR\Shaders\GvrUnityCompatibility.cginc" />
      <None Include="Assets\GoogleVR\Demos\Shaders\VideoDemo\VideoDemoStereoShader.shader" />
  <Reference Include="UnityEditor.Advertisements">
@@ -143,15 +148,15 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="LitJson">
- <HintPath>H:/Unity/170503 360/Assets/LitJson.dll</HintPath>
+ <HintPath>E:/Desktop/Neuer Ordner/Assets/LitJson.dll</HintPath>
  </Reference>
  <Reference Include="Google.ProtocolBuffers">
- <HintPath>H:/Unity/170503 360/Assets/Plugins/Google.ProtocolBuffers.dll</HintPath>
+ <HintPath>E:/Desktop/Neuer Ordner/Assets/Plugins/Google.ProtocolBuffers.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{BBB33DE9-EEE0-CE60-5570-A84D59D8A1F8}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+      <Project>{332F31E6-CE60-F9F0-54F8-9F7038727EC8}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

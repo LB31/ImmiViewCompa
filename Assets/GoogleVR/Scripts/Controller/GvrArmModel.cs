@@ -95,10 +95,6 @@ public class GvrArmModel : MonoBehaviour {
   /// Multiplier for handedness such that 1 = Right, 0 = Center, -1 = left.
   private Vector3 handedMultiplier;
 
-#if UNITY_EDITOR
-  private Camera editorHeadCamera;
-#endif // UNITY_EDITOR
-
   /// Use the GvrController singleton to obtain a singleton for this class.
   public static GvrArmModel Instance {
     get {
@@ -221,12 +217,6 @@ public class GvrArmModel : MonoBehaviour {
     instance = null;
   }
 
-#if UNITY_EDITOR
-  void Update() {
-    editorHeadCamera = Camera.main;
-  }
-#endif // UNITY_EDITOR
-
   private void OnControllerUpdate() {
     if (GvrController.Recentered) {
       ResetState();
@@ -274,17 +264,12 @@ public class GvrArmModel : MonoBehaviour {
 
   private Vector3 GetHeadOrientation() {
 #if UNITY_EDITOR
-    if (editorHeadCamera == null) {
-      Debug.LogWarning("No Head Camera.");
-      return Vector3.forward;
+    Camera cam = Camera.main;
+    if (cam == null) {
+      // Use the first one found.
+      cam = Camera.allCameras[0];
     }
-
-    Vector3 forward = editorHeadCamera.transform.forward;
-    if (editorHeadCamera.transform.parent != null) {
-      forward = editorHeadCamera.transform.parent.InverseTransformDirection(forward);
-    }
-
-    return forward;
+    return cam.transform.forward;
 #else
     return InputTracking.GetLocalRotation(VRNode.Head) * Vector3.forward;
 #endif // UNITY_EDITOR

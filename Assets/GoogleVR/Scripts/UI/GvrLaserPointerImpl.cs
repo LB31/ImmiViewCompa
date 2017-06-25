@@ -16,7 +16,6 @@
 // GVR native integration.
 
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 /// Implementation of GvrBasePointer for a laser pointer visual.
 /// This script should be attached to the controller object.
@@ -52,12 +51,12 @@ public class GvrLaserPointerImpl : GvrBasePointer {
     }
     set {
       reticle = value;
-      reticleMeshSizeMeters = 1.0f;
-      reticleMeshSizeRatio = 1.0f;
+      reticleMeshSizeMeters = 0.0f;
+      reticleMeshSizeRatio = 0.0f;
 
       if (reticle != null) {
         MeshFilter meshFilter = reticle.GetComponent<MeshFilter>();
-        if (meshFilter != null && meshFilter.mesh != null) {
+        if (meshFilter.mesh != null) {
           reticleMeshSizeMeters = meshFilter.mesh.bounds.size.x;
           if (reticleMeshSizeMeters != 0.0f) {
             reticleMeshSizeRatio = 1.0f / reticleMeshSizeMeters;
@@ -122,24 +121,24 @@ public class GvrLaserPointerImpl : GvrBasePointer {
 #endif  // UNITY_HAS_GOOGLEVR && (UNITY_ANDROID || UNITY_EDITOR)
   }
 
-  public override void OnPointerEnter(RaycastResult rayastResult, Ray ray,
-    bool isInteractive) {
+  public override void OnPointerEnter(GameObject targetObject, Vector3 intersectionPosition,
+      Ray intersectionRay, bool isInteractive) {
 #if UNITY_HAS_GOOGLEVR && (UNITY_ANDROID || UNITY_EDITOR)
-    PointerIntersection = rayastResult.worldPosition;
-    PointerIntersectionRay = ray;
+    PointerIntersection = intersectionPosition;
+    PointerIntersectionRay = intersectionRay;
     IsPointerIntersecting = true;
 #endif  // UNITY_HAS_GOOGLEVR && (UNITY_ANDROID || UNITY_EDITOR)
   }
 
-  public override void OnPointerHover(RaycastResult rayastResult, Ray ray,
-    bool isInteractive) {
+  public override void OnPointerHover(GameObject targetObject, Vector3 intersectionPosition,
+      Ray intersectionRay, bool isInteractive) {
 #if UNITY_HAS_GOOGLEVR && (UNITY_ANDROID || UNITY_EDITOR)
-    PointerIntersection = rayastResult.worldPosition;
-    PointerIntersectionRay = ray;
+    PointerIntersection = intersectionPosition;
+    PointerIntersectionRay = intersectionRay;
 #endif  // UNITY_HAS_GOOGLEVR && (UNITY_ANDROID || UNITY_EDITOR)
   }
 
-  public override void OnPointerExit(GameObject previousObject) {
+  public override void OnPointerExit(GameObject targetObject) {
 #if UNITY_HAS_GOOGLEVR && (UNITY_ANDROID || UNITY_EDITOR)
     PointerIntersection = Vector3.zero;
     PointerIntersectionRay = new Ray();
@@ -186,12 +185,9 @@ public class GvrLaserPointerImpl : GvrBasePointer {
     // Set the reticle's position and scale
     if (Reticle != null) {
       if (IsPointerIntersecting) {
-        Vector3 controllerDiff = PointerTransform.position - PointerIntersectionRay.origin;
-        Vector3 proj = Vector3.Project(controllerDiff, PointerIntersectionRay.direction);
-        Vector3 controllerAlongRay = PointerIntersectionRay.origin + proj;
-        Vector3 difference = PointerIntersection - controllerAlongRay;
+        Vector3 difference = PointerIntersection - PointerIntersectionRay.origin;
         Vector3 clampedDifference = Vector3.ClampMagnitude(difference, MaxReticleDistance);
-        Vector3 clampedPosition = controllerAlongRay + clampedDifference;
+        Vector3 clampedPosition = PointerIntersectionRay.origin + clampedDifference;
         Reticle.transform.position = clampedPosition;
       } else {
         Reticle.transform.localPosition = new Vector3(0, 0, MaxReticleDistance);
@@ -223,12 +219,7 @@ public class GvrLaserPointerImpl : GvrBasePointer {
 
     // Adjust transparency
     float alpha = GvrArmModel.Instance.preferredAlpha;
-#if UNITY_5_6_OR_NEWER
-    LaserLineRenderer.startColor = Color.Lerp(Color.clear, LaserColor, alpha);
-    LaserLineRenderer.endColor = Color.clear;
-#else
     LaserLineRenderer.SetColors(Color.Lerp(Color.clear, LaserColor, alpha), Color.clear);
-#endif  // UNITY_5_6_OR_NEWER
   }
 #endif  // UNITY_HAS_GOOGLEVR && (UNITY_ANDROID || UNITY_EDITOR)
 }
